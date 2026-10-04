@@ -1,0 +1,32 @@
+# Python
+venv/
+.venv/
+__pycache__/
+*.pyc
+
+# Environment variables
+.env
+.env.*
+
+# Node
+node_modules/
+dist/
+build/
+
+# IDE
+.idea/
+.vscode/
+
+# OS
+.DS_Store
+
+# Logs
+*.log
+
+# Database
+*.db
+*.sqlite3node_modules/
+dist/
+.angular/
+*.log
+#script#

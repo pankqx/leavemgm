@@ -1,0 +1,77 @@
+<app-navbar></app-navbar>
+
+<main class="page">
+  @if (submitted()) {
+    <div class="card confirm">
+      <div class="mark">🌿</div>
+      <h1>Request sent</h1>
+      <p>
+        Your {{ type() | lowercase }} leave for {{ days() }} day{{ days() === 1 ? '' : 's' }}
+        has gone to your manager for review.
+      </p>
+      <div class="actions">
+        <button class="btn-primary" (click)="goHistory()">View history</button>
+        <button class="btn-secondary" (click)="applyAnother()">Apply for another</button>
+      </div>
+    </div>
+  } @else {
+    <h1>Apply for leave</h1>
+    <p class="sub">Tell us when you're away and why — your manager sees this exactly as written.</p>
+
+    <form class="card form" (ngSubmit)="submit()">
+      <label for="type">Leave type</label>
+      <select id="type" name="type" [ngModel]="type()" (ngModelChange)="type.set($event)">
+        @for (t of leaveTypes; track t) {
+          <option [value]="t">{{ t }}</option>
+        }
+      </select>
+
+      <div class="row">
+        <div>
+          <label for="start">From</label>
+          <input
+            id="start"
+            type="date"
+            name="start"
+            [ngModel]="startDate()"
+            (ngModelChange)="startDate.set($event)"
+            required
+          />
+        </div>
+        <div>
+          <label for="end">To</label>
+          <input
+            id="end"
+            type="date"
+            name="end"
+            [ngModel]="endDate()"
+            (ngModelChange)="endDate.set($event)"
+            required
+          />
+        </div>
+      </div>
+
+      @if (days() > 0) {
+        <p class="day-count">{{ days() }} day{{ days() === 1 ? '' : 's' }} total</p>
+      }
+
+      <label for="reason" class="mt">Reason</label>
+      <textarea
+        id="reason"
+        name="reason"
+        rows="4"
+        placeholder="A line or two is enough — e.g. Travelling home for a family event."
+        [ngModel]="reason()"
+        (ngModelChange)="reason.set($event)"
+      ></textarea>
+
+      @if (error()) {
+        <p class="err">{{ error() }}</p>
+      }
+
+      <button type="submit" class="btn-primary mt" [disabled]="!canSubmit() || submitting()">
+        {{ submitting() ? 'Sending…' : 'Submit request' }}
+      </button>
+    </form>
+  }
+</main>

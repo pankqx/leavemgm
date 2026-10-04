@@ -1,0 +1,64 @@
+<app-navbar></app-navbar>
+
+<main class="page">
+  <h1>Approvals</h1>
+  <p class="sub">{{ pending().length }} request{{ pending().length === 1 ? '' : 's' }} waiting on you.</p>
+
+  @if (pending().length === 0) {
+    <p class="empty">Nothing waiting for review. Take a breath.</p>
+  } @else {
+    <ul class="queue">
+      @for (r of pending(); track r.id) {
+        <li class="card item">
+          <div class="top">
+            <div>
+              <span class="strong">{{ r.employeeName }}</span>
+              <span class="muted"> — {{ r.type }} · {{ r.days }} day{{ r.days === 1 ? '' : 's' }}</span>
+            </div>
+            <span class="dates">{{ r.startDate }} → {{ r.endDate }}</span>
+          </div>
+          <p class="reason">"{{ r.reason }}"</p>
+
+          @if (activeId() === r.id) {
+            <textarea
+              rows="2"
+              placeholder="Optional note back to them (e.g. reason for rejecting)"
+              [ngModel]="comment()"
+              (ngModelChange)="comment.set($event)"
+            ></textarea>
+          }
+
+          <div class="actions">
+            <button class="btn-primary" [disabled]="busyId() === r.id" (click)="decide(r, 'approved')">
+              Approve
+            </button>
+            <button class="btn-secondary danger" [disabled]="busyId() === r.id" (click)="decide(r, 'rejected')">
+              Reject
+            </button>
+            <button class="btn-text" (click)="openComment(r.id)">
+              {{ activeId() === r.id ? 'Hide note' : 'Add note' }}
+            </button>
+          </div>
+        </li>
+      }
+    </ul>
+  }
+
+  @if (decided().length > 0) {
+    <h2 class="mt">Recently decided</h2>
+    <ul class="decided">
+      @for (r of decided(); track r.id) {
+        <li>
+          <span>{{ r.employeeName }} — {{ r.type }}, {{ r.startDate }} → {{ r.endDate }}</span>
+          <span
+            class="status-pill"
+            [class.status-approved]="r.status === 'approved'"
+            [class.status-rejected]="r.status === 'rejected'"
+          >
+            {{ r.status }}
+          </span>
+        </li>
+      }
+    </ul>
+  }
+</main>

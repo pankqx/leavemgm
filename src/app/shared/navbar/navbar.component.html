@@ -1,0 +1,20 @@
+<header class="bar">
+  <a routerLink="/home" class="brand">
+    <span class="mark">🌿</span>
+    <span>Leaflet</span>
+  </a>
+
+  <nav class="links">
+    <a routerLink="/home" routerLinkActive="active">Home</a>
+    <a routerLink="/history" routerLinkActive="active">History</a>
+    @if (user()?.role === 'manager') {
+      <a routerLink="/manager" routerLinkActive="active">Approvals</a>
+    }
+  </nav>
+
+  <div class="who">
+    <span class="name">{{ user()?.name }}</span>
+    <span class="role">{{ user()?.role }}</span>
+    <button class="btn-text" (click)="logout()">Sign out</button>
+  </div>
+</header>

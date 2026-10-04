@@ -1,0 +1,16 @@
+ curl -I --max-time 10 http://localhost:4200 || ss -lnt | grep 4200 || (echo 'App not responding on 4200' && exit 1)
+ cd "/home/maharaja/Projects/leave mgm system v1" && pwd && ls -1 && echo '---' && ps -ef | grep -E 'ng serve|npm|node' | grep -v grep || true && echo '---' && test -d node_modules && echo node_modules_present || echo no_node_modules
+ cd "/home/maharaja/Projects/leave mgm system v1" && npm install --silent && echo 'INSTALL_OK'
+ echo hi && pwd && ls -la /home/maharaja/Projects/leave\ mgm\ system\ v1 | head
+ set -x; cd "/home/maharaja/Projects/leave mgm system v1"; pwd; ls -la; node -v; npm -v; npm install --silent; echo DONE
+ cd "/home/maharaja/Projects/leave mgm system v1" && npm install > /tmp/leave_app_install.log 2>&1 && echo INSTALL_DONE > /tmp/leave_app_state.txt
+ which node && node -v && npm -v && echo OK
+ cd "/home/maharaja/Projects/leave mgm system v1" && npm install --loglevel=error && npx ng build --configuration development
+ cd "/home/maharaja/Projects/leave mgm system v1" && npx ng build --configuration development --verbose
+ ps -ef | grep -E 'ng|node|npm' | grep -v grep; echo '---'; ss -lntup | head -50; echo '---'; command -v node; node -v; npm -v
+ pkill -f "ng serve" || true; cd "/home/maharaja/Projects/leave mgm system v1"; nohup npm start -- --host 0.0.0.0 --port 4200 >/tmp/leave_app_server.log 2>&1 & echo $!
+ sleep 5; curl -I --max-time 15 http://localhost:4200; echo '---'; tail -n 40 /tmp/leave_app_server.log 2>/dev/null || true
+ bash -lc 'echo hello; pwd; node -v; npm -v'
+ echo hi > /tmp/testfile.txt && echo done
+ echo ok > /tmp/terminal_test.txt && echo done
+ cd "/home/maharaja/Projects/leave mgm system v1" && (./node_modules/.bin/ng serve --host 0.0.0.0 --port 4200 > /tmp/leave_app_server.log 2>&1 & echo $! > /tmp/leave_app_server.pid) && echo started

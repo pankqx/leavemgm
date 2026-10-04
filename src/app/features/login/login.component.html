@@ -1,0 +1,47 @@
+<div class="wrap">
+  <div class="panel card">
+    <div class="mark">🌿</div>
+    <h1>Leaflet</h1>
+    <p class="sub">Sign in to apply for leave, track requests, or review your team's.</p>
+
+    <form (ngSubmit)="submit()" #f="ngForm">
+      <label for="email">Email</label>
+      <input
+        id="email"
+        type="email"
+        name="email"
+        [ngModel]="email()"
+        (ngModelChange)="email.set($event)"
+        placeholder="you@leaflet.dev"
+        required
+        autocomplete="email"
+      />
+
+      <label for="password" class="mt">Password</label>
+      <input
+        id="password"
+        type="password"
+        name="password"
+        [ngModel]="password()"
+        (ngModelChange)="password.set($event)"
+        placeholder="••••••••"
+        required
+        autocomplete="current-password"
+      />
+
+      @if (error()) {
+        <p class="err">{{ error() }}</p>
+      }
+
+      <button type="submit" class="btn-primary full mt" [disabled]="f.invalid || loading()">
+        {{ loading() ? 'Signing in…' : 'Sign in' }}
+      </button>
+    </form>
+
+    <div class="demo">
+      <span>Try it as —</span>
+      <button class="btn-secondary" type="button" (click)="fillDemo('employee')">Employee</button>
+      <button class="btn-secondary" type="button" (click)="fillDemo('manager')">Manager</button>
+    </div>
+  </div>
+</div>

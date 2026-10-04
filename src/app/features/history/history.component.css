@@ -1,0 +1,77 @@
+.page {
+  max-width: 920px;
+  margin: 0 auto;
+  padding: 3rem 2rem 4rem;
+}
+
+.head {
+  display: flex;
+  align-items: baseline;
+  justify-content: space-between;
+  flex-wrap: wrap;
+  gap: 1rem;
+  margin-bottom: 1.75rem;
+}
+
+.filters { display: flex; gap: 0.5rem; }
+.chip {
+  background: transparent;
+  border: 1px solid var(--line);
+  color: var(--muted);
+  font-size: 0.82rem;
+  font-weight: 500;
+  padding: 0.4rem 0.9rem;
+  border-radius: 100px;
+}
+.chip.active { border-color: var(--forest); color: var(--forest); background: var(--forest-tint); }
+
+.empty {
+  font-size: 0.9rem;
+  color: var(--muted);
+  padding: 1.25rem;
+  border: 1px dashed var(--line);
+  border-radius: 6px;
+}
+
+.table {
+  width: 100%;
+  border-collapse: collapse;
+  font-size: 0.88rem;
+}
+
+.table thead th {
+  text-align: left;
+  font-weight: 500;
+  color: var(--muted);
+  font-size: 0.78rem;
+  padding: 0 0.5rem 0.6rem;
+  border-bottom: 1px solid var(--line);
+}
+
+.table tbody td {
+  padding: 0.9rem 0.5rem;
+  border-bottom: 1px solid var(--line);
+  vertical-align: top;
+  color: var(--ink-soft);
+}
+
+.table tbody tr:last-child td { border-bottom: none; }
+
+.strong { color: var(--ink); font-weight: 500; }
+.reason { max-width: 22ch; }
+
+.comment {
+  margin-top: 0.35rem;
+  font-size: 0.78rem;
+  color: var(--muted);
+  font-style: italic;
+  max-width: 20ch;
+}
+
+@media (max-width: 720px) {
+  .table thead { display: none; }
+  .table, .table tbody, .table tr, .table td { display: block; width: 100%; }
+  .table tr { padding: 0.9rem 0; border-bottom: 1px solid var(--line); }
+  .table td { padding: 0.15rem 0; border-bottom: none; }
+  .table td.reason, .table td.strong { max-width: none; }
+}

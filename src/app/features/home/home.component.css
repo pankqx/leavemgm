@@ -1,0 +1,71 @@
+.page {
+  max-width: 760px;
+  margin: 0 auto;
+  padding: 3.5rem 2rem 4rem;
+}
+
+.eyebrow {
+  font-size: 0.85rem;
+  color: var(--forest);
+  font-weight: 500;
+  margin-bottom: 0.5rem;
+}
+
+.hero h1 {
+  font-size: 2.4rem;
+  max-width: 14ch;
+}
+
+.lede { max-width: 46ch; margin-bottom: 2rem; }
+
+.btn-primary.big {
+  font-size: 1.05rem;
+  padding: 1rem 2.1rem;
+}
+
+.stats {
+  display: flex;
+  gap: 2.5rem;
+  margin-top: 2.5rem;
+  padding-top: 1.75rem;
+  border-top: 1px solid var(--line);
+}
+.stats > div { display: flex; flex-direction: column; }
+.num { font-family: var(--font-display); font-size: 1.8rem; color: var(--ink); line-height: 1; }
+.label { font-size: 0.8rem; color: var(--muted); margin-top: 0.3rem; }
+
+.recent { margin-top: 3.5rem; }
+
+.recent-head {
+  display: flex;
+  align-items: baseline;
+  justify-content: space-between;
+  margin-bottom: 1rem;
+}
+.recent-head h2 { margin: 0; }
+.recent-head a { font-size: 0.85rem; font-weight: 500; }
+
+.empty {
+  font-size: 0.9rem;
+  color: var(--muted);
+  padding: 1.25rem;
+  border: 1px dashed var(--line);
+  border-radius: 6px;
+}
+
+.ledger {
+  list-style: none;
+  margin: 0;
+  padding: 0;
+  border-top: 1px solid var(--line);
+}
+.ledger li {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 0.9rem 0.25rem;
+  border-bottom: 1px solid var(--line);
+}
+.ledger .who { display: flex; flex-direction: column; gap: 0.15rem; }
+.ledger .type { font-weight: 500; font-size: 0.92rem; }
+.ledger .dates { font-size: 0.8rem; color: var(--muted); }
