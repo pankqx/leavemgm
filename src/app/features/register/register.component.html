@@ -1,0 +1,39 @@
+<div class="wrap">
+  <div class="panel card">
+    <div class="mark">🌿</div>
+    <h1>Create your account</h1>
+    <p class="sub">Employees can sign up here. Manager accounts are set up by an administrator.</p>
+
+    <form (ngSubmit)="submit()" #f="ngForm">
+      <label for="name">Full name</label>
+      <input id="name" name="name" type="text" [ngModel]="name()" (ngModelChange)="name.set($event)"
+             required minlength="2" maxlength="80" autocomplete="name" />
+
+      <label for="email" class="mt">Email</label>
+      <input id="email" name="email" type="email" [ngModel]="email()" (ngModelChange)="email.set($event)"
+             placeholder="you@leaflet.dev" required autocomplete="email" />
+
+      <label for="password" class="mt">Password</label>
+      <input id="password" name="password" type="password" [ngModel]="password()"
+             (ngModelChange)="password.set($event)" placeholder="At least 8 characters"
+             required minlength="8" maxlength="72" autocomplete="new-password" />
+
+      <label for="confirm" class="mt">Confirm password</label>
+      <input id="confirm" name="confirm" type="password" [ngModel]="confirm()"
+             (ngModelChange)="confirm.set($event)" required autocomplete="new-password" />
+
+      @if (mismatch()) {
+        <p class="err">Passwords don't match.</p>
+      }
+      @if (error()) {
+        <p class="err">{{ error() }}</p>
+      }
+
+      <button type="submit" class="btn-primary full mt" [disabled]="!canSubmit() || loading()">
+        {{ loading() ? 'Creating account…' : 'Create account' }}
+      </button>
+    </form>
+
+    <p class="switch">Already have an account? <a routerLink="/login">Sign in</a></p>
+  </div>
+</div>

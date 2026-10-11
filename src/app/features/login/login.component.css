@@ -40,3 +40,10 @@ h1 { margin-bottom: 0.25rem; }
   color: var(--muted);
 }
 .demo .btn-secondary { padding: 0.4rem 0.8rem; font-size: 0.8rem; }
+
+.switch {
+  margin: 1.25rem 0 0;
+  font-size: 0.85rem;
+  color: var(--muted);
+  text-align: center;
+}

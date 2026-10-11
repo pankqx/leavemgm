@@ -4,6 +4,7 @@ import { FormsModule } from '@angular/forms';
 import { LeaveService } from '../../core/services/leave.service';
 import { LeaveRequest } from '../../core/models/leave.model';
 import { NavbarComponent } from '../../shared/navbar/navbar.component';
+import { apiErrorMessage } from '../../core/utils/http-error';
 
 @Component({
   selector: 'app-manager-dashboard',
@@ -19,6 +20,7 @@ export class ManagerDashboardComponent {
   activeId = signal<string | null>(null);
   comment = signal('');
   busyId = signal<string | null>(null);
+  error = signal<string | null>(null);
 
   pending = computed(() => this.all().filter((r) => r.status === 'pending'));
   decided = computed(() => this.all().filter((r) => r.status !== 'pending'));
@@ -28,7 +30,10 @@ export class ManagerDashboardComponent {
   }
 
   refresh(): void {
-    this.leaveSvc.getAll().subscribe((list) => this.all.set(list));
+    this.leaveSvc.getAll().subscribe({
+      next: (list) => this.all.set(list),
+      error: (err) => this.error.set(apiErrorMessage(err, 'Could not load requests. Please refresh.')),
+    });
   }
 
   openComment(id: string): void {
@@ -38,10 +43,18 @@ export class ManagerDashboardComponent {
 
   decide(req: LeaveRequest, status: 'approved' | 'rejected'): void {
     this.busyId.set(req.id);
-    this.leaveSvc.decide(req.id, status, this.comment().trim() || undefined).subscribe(() => {
-      this.busyId.set(null);
-      this.activeId.set(null);
-      this.refresh();
+    this.error.set(null);
+    this.leaveSvc.decide(req.id, status, this.comment().trim() || undefined).subscribe({
+      next: () => {
+        this.busyId.set(null);
+        this.activeId.set(null);
+        this.refresh();
+      },
+      error: (err) => {
+        this.busyId.set(null);
+        this.error.set(apiErrorMessage(err, 'Could not save your decision. Please try again.'));
+        this.refresh(); // someone else may have decided it already
+      },
     });
   }
 }

@@ -6,6 +6,7 @@ import { AuthService } from '../../core/services/auth.service';
 import { LeaveService } from '../../core/services/leave.service';
 import { LeaveType } from '../../core/models/leave.model';
 import { NavbarComponent } from '../../shared/navbar/navbar.component';
+import { apiErrorMessage } from '../../core/utils/http-error';
 
 @Component({
   selector: 'app-apply-leave',
@@ -50,12 +51,9 @@ export class ApplyLeaveComponent {
     this.submitting.set(true);
     this.leaveSvc
       .apply({
-        employeeId: this.user()!.id,
-        employeeName: this.user()!.name,
         type: this.type(),
         startDate: this.startDate(),
         endDate: this.endDate(),
-        days: this.days(),
         reason: this.reason().trim(),
       })
       .subscribe({
@@ -63,9 +61,9 @@ export class ApplyLeaveComponent {
           this.submitting.set(false);
           this.submitted.set(true);
         },
-        error: () => {
+        error: (err) => {
           this.submitting.set(false);
-          this.error.set('Something went wrong submitting your request. Please try again.');
+          this.error.set(apiErrorMessage(err, 'Something went wrong submitting your request. Please try again.'));
         },
       });
   }

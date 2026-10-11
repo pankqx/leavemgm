@@ -162,3 +162,12 @@ label {
 .status-rejected { background: var(--rust-tint); color: var(--rust); }
 
 ::selection { background: var(--forest-tint); color: var(--forest-dark); }
+
+.banner-err {
+  background: var(--rust-tint);
+  color: var(--rust);
+  border-radius: 8px;
+  padding: 0.65rem 0.9rem;
+  font-size: 0.88rem;
+  margin: 0 0 1rem;
+}

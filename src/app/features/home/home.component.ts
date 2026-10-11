@@ -24,10 +24,11 @@ export class HomeComponent {
   pendingCount = computed(() => this.recent().filter((r) => r.status === 'pending').length);
 
   constructor() {
-    const uid = this.user()?.id;
-    if (uid) {
-      this.leaveSvc.getForEmployee(uid).subscribe((list) => this.recent.set(list.slice(0, 3)));
-    }
+    this.auth.refresh(); // pick up the latest leave balance
+    this.leaveSvc.getMine().subscribe({
+      next: (list) => this.recent.set(list.slice(0, 3)),
+      error: () => this.recent.set([]),
+    });
   }
 
   goApply(): void {

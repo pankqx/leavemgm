@@ -38,10 +38,14 @@
       </button>
     </form>
 
-    <div class="demo">
-      <span>Try it as —</span>
-      <button class="btn-secondary" type="button" (click)="fillDemo('employee')">Employee</button>
-      <button class="btn-secondary" type="button" (click)="fillDemo('manager')">Manager</button>
-    </div>
+    <p class="switch">New here? <a routerLink="/register">Create an account</a></p>
+
+    @if (showDemo) {
+      <div class="demo">
+        <span>Try it as —</span>
+        <button class="btn-secondary" type="button" (click)="fillDemo('employee')">Employee</button>
+        <button class="btn-secondary" type="button" (click)="fillDemo('manager')">Manager</button>
+      </div>
+    }
   </div>
 </div>

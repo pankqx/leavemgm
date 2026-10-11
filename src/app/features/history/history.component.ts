@@ -21,6 +21,7 @@ export class HistoryComponent {
   user = this.auth.currentUser;
   all = signal<LeaveRequest[]>([]);
   filter = signal<FilterOption>('all');
+  error = signal<string | null>(null);
 
   filtered = computed(() => {
     const f = this.filter();
@@ -35,10 +36,10 @@ export class HistoryComponent {
   ];
 
   constructor() {
-    const uid = this.user()?.id;
-    if (uid) {
-      this.leaveSvc.getForEmployee(uid).subscribe((list) => this.all.set(list));
-    }
+    this.leaveSvc.getMine().subscribe({
+      next: (list) => this.all.set(list),
+      error: () => this.error.set('Could not load your requests. Please refresh.'),
+    });
   }
 
   setFilter(f: FilterOption): void {

@@ -4,6 +4,10 @@
   <h1>Approvals</h1>
   <p class="sub">{{ pending().length }} request{{ pending().length === 1 ? '' : 's' }} waiting on you.</p>
 
+  @if (error()) {
+    <p class="banner-err" role="alert">{{ error() }}</p>
+  }
+
   @if (pending().length === 0) {
     <p class="empty">Nothing waiting for review. Take a breath.</p>
   } @else {
