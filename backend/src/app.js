@@ -14,10 +14,11 @@ if (config.nodeEnv === 'production') app.set('trust proxy', 1);
 app.use(helmet());
 app.use(
   cors({
+    // Listed origins get CORS headers. Anything else simply gets none, so browsers block
+    // cross-site reads, while same-origin requests (which also carry an Origin header on
+    // POST/PATCH) and non-browser clients keep working.
     origin(origin, cb) {
-      // Allow same-origin / non-browser clients (no Origin header) and the configured Angular origins.
-      if (!origin || config.corsOrigins.includes(origin)) return cb(null, true);
-      cb(new Error('Origin not allowed by CORS'));
+      cb(null, Boolean(origin) && config.corsOrigins.includes(origin));
     },
   })
 );

@@ -63,3 +63,12 @@ test('security headers are set', async () => {
   assert.equal(res.headers['x-content-type-options'], 'nosniff');
   assert.equal(res.headers['x-powered-by'], undefined);
 });
+
+test('CORS: listed origin is allowed, unknown origin gets no CORS headers but is not an error', async () => {
+  const allowed = await request(app).get('/api/health').set('Origin', config.corsOrigins[0]);
+  assert.equal(allowed.headers['access-control-allow-origin'], config.corsOrigins[0]);
+
+  const other = await request(app).get('/api/health').set('Origin', 'https://evil.example');
+  assert.equal(other.status, 200);
+  assert.equal(other.headers['access-control-allow-origin'], undefined);
+});
