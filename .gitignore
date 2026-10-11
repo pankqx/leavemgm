@@ -7,6 +7,7 @@ __pycache__/
 # Environment variables
 .env
 .env.*
+!.env.example
 
 # Node
 node_modules/
@@ -25,8 +26,8 @@ build/
 
 # Database
 *.db
-*.sqlite3node_modules/
-dist/
+*.sqlite3
+
+# Angular
 .angular/
-*.log
-#script#
+
